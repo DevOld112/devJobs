@@ -1,4 +1,8 @@
 <script setup>
+import { RouterLink, useRouter } from 'vue-router'
+import { formatString } from '../helpers';
+
+const router = useRouter()
 
 defineProps({
     job: {
@@ -25,12 +29,17 @@ defineProps({
 
             <div class="flex flex-col my-10">
                 <h2>Contrato</h2>
-                <h3 class="text-gray-500">{{ job.contract }}</h3>
+                <h3 class="text-gray-500"> {{ formatString(job.contract) }}</h3>
             </div>
 
-            <div class="text-white inline-block w-64 h-10 text-center font-bold my-5 bg-teal-500 p-2 rounded-lg">
+            <RouterLink
+            :to="{
+                name:'job',
+                params: {id: job._id }   
+            }"
+            class="text-white inline-block w-64 h-10 text-center font-bold my-5 bg-teal-500 p-2 rounded-lg">
                 Mas Info
-            </div>
+            </RouterLink>
 
 
 

@@ -1,3 +1,4 @@
+import { isValidObjectId } from 'mongoose'
 import Vacancy from '../models/Vacancy.js'
 
 const addVacancy = async(req, res) => {
@@ -23,6 +24,36 @@ const addVacancy = async(req, res) => {
     }
 }
 
+const showVacancy = async(req, res) => {
+    const { id } = req.params
+
+
+    //Validar por ObjectId
+
+    if(!isValidObjectId(id, res)){
+        return res.status(404).json({
+            msg: 'Enlace no valido'
+        })
+    }
+
+    //Validar que exista en la base de datos
+
+    const vacancy = await Vacancy.findById(id)
+
+    if(!vacancy){
+        return res.status(404).json({
+            msg: 'Vacante no existe'
+        })
+    }
+
+    //Mostrar finalmente la vacante
+
+    res.status(200).json(vacancy)
+
+
+}
+
 export {
-    addVacancy
+    addVacancy,
+    showVacancy
 }

@@ -6,17 +6,6 @@ import { RouterLink } from 'vue-router'
 
     const store = useVacancyStore()
 
-   const showVacancy = () =>{
-    const value = vacancy.jobs
-    return value
-   }
-
-const jobs = [
-    {company: 'Facebook', tittle: 'React Developer', location: 'Remoto' , contract: 'Tiempo Completo'},
-    {company: 'Twitter', tittle: 'Vuejs Developer', location: 'Remoto' , contract: 'Tiempo Completo'},
-    {company: 'Uber', tittle: 'Nodejs Developer' , location: 'Remoto', contract: 'Tiempo Completo'},
-]
-
 
 </script>
 

@@ -12,7 +12,12 @@ const router = createRouter({
         {
           path: '/layout',
           name: 'principal',
-          component: () => import('../views/layout/LayoutView.vue')
+          component: () => import('../views/layout/LayoutView.vue'),
+        },
+        {
+          path: ':id',
+          name: 'job',
+          component: () => import('../views/layout/jobView.vue')
         },
         {
           path: '/vacancy',

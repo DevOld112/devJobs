@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import indexAPI from '../api/indexAPI' 
 
 
+
 export const useVacancyStore = defineStore('vacancies', () => {
 
     const jobs = ref([])
@@ -14,7 +15,12 @@ export const useVacancyStore = defineStore('vacancies', () => {
         } catch (error) {
             console.log(error)
         }
+
     })
+
+  
+
+
 
     return {
         jobs
