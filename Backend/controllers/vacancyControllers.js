@@ -53,7 +53,51 @@ const showVacancy = async(req, res) => {
 
 }
 
+const updateVacancy = async(req, res) => {
+
+    const { id } = req.params
+    //Validar por ObjectId
+
+    if(!isValidObjectId(id, res)){
+        return res.status(404).json({
+            msg: 'Enlace no valido'
+        })
+    }
+
+    //Validar que exista en la base de datos
+
+    const vacancy = await Vacancy.findById(id)
+
+    if(!vacancy){
+        return res.status(404).json({
+            msg: 'Vacante no existe'
+        })
+    }
+
+    const { tittle, company, location, salary, contract, description, skills } = req.body
+
+    vacancy.tittle = tittle
+    vacancy.company = company
+    vacancy.location = location
+    vacancy.salary = salary
+    vacancy.contract = contract
+    vacancy.description = description
+    vacancy.skills = skills
+
+    try {
+        const update = await vacancy.save();
+        return res.status(200).json({
+            msg: 'La cita se actualizacion correctamente'
+        })
+    } catch (error) {
+        res.status(404).json({
+            msg: 'No se pudo realizar la actualizacion correctamente, por favor volver a intentarlo'
+        })
+    }
+}
+
 export {
     addVacancy,
-    showVacancy
+    showVacancy,
+    updateVacancy
 }

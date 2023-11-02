@@ -1,10 +1,10 @@
 <script setup>
-import { useRoute, useRouter } from 'vue-router';
+import { RouterLink, useRoute, useRouter } from 'vue-router';
 import vacancyAPI from '../../api/vacancyAPI';
 import { onMounted,ref } from 'vue';
 import { inject } from 'vue';
-import { formatCurrency, formatString } from '../../helpers/index'
-
+import { formatCurrency } from '../../helpers'
+import { formatString } from '../../helpers'
 const toast = inject('toast')
 
 const route = useRoute()
@@ -34,15 +34,12 @@ onMounted(async() => {
 })
 
 
-
-
-
 </script>
 
 <template>
 
     <h1 class="text-6xl text-gray-200 font-extrabold"> Vacante Disponible</h1>
-    <h3 class="text-2xl text-gray-200 font-medium">{{ vacancy.tittle }}</h3>
+    <h3 class="text-2xl text-gray-200 font-medium">Puesto: {{ vacancy.tittle }}</h3>
     
     <hr>
 
@@ -61,7 +58,7 @@ onMounted(async() => {
 
                 <div class="flex flex-col">
                     <h2>Contrato</h2>
-                    <h3 class="text-gray-500">{{ formatString((vacancy.contract))  }}</h3>
+                    <h3 class="text-gray-500">{{ vacancy.contract !== undefined ? formatString(vacancy.contract) : '' }}</h3>
                 </div>
 
                 <div class="flex flex-col">
@@ -77,6 +74,12 @@ onMounted(async() => {
         <div class="w-2/3 border border-white p-4 bg-slate-900 rounded-lg">
             <h3 class="text-xl">Descripcion del Puesto:</h3>
             <p class="font-medium text-gray-200 mt-10">{{ vacancy.description }}</p>
+
+            <div class="text-white inline-block w-full mt-10 text-center font-bold my-5 bg-teal-500 p-2 rounded-lg">
+                Editar Vacante
+            </div>
+
+
         </div>
 
         <div class="w-1/3 border border-white p-4 bg-slate-900 rounded-lg">
