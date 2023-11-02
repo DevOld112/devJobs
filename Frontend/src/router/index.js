@@ -27,6 +27,11 @@ const router = createRouter({
               path: '/newVacancy',
               name: 'newVacancy',
               component: () => import('../views/layout/NewVacancyView.vue')
+            },
+            {
+              path: '/edit/:id',
+              name: 'editVacancy',
+              component: () => import('../views/layout/EditVacancyView.vue')
             }
           ]
         }

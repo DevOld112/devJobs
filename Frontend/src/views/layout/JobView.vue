@@ -17,7 +17,6 @@ const vacancy = ref({})
 onMounted(async() => {
     try {
         const job = await vacancyAPI.showVacancy(id)
-        console.log(job.data)
         vacancy.value = job.data
 
 
@@ -75,9 +74,11 @@ onMounted(async() => {
             <h3 class="text-xl">Descripcion del Puesto:</h3>
             <p class="font-medium text-gray-200 mt-10">{{ vacancy.description }}</p>
 
-            <div class="text-white inline-block w-full mt-10 text-center font-bold my-5 bg-teal-500 p-2 rounded-lg">
+            <RouterLink 
+            :to="{name:'editVacancy'}"
+            class="text-white inline-block w-full mt-10 text-center font-bold my-5 bg-teal-500 p-2 rounded-lg">
                 Editar Vacante
-            </div>
+            </RouterLink>
 
 
         </div>

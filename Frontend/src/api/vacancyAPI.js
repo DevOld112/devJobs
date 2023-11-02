@@ -6,5 +6,8 @@ export default {
     },
     showVacancy(id){
         return api.get(`/employ/vacancy/${id}`)
+    },
+    updateVacancy(id, data){
+        return api.post(`/employ/vacancy/${id}/edit`, data)
     }
 }

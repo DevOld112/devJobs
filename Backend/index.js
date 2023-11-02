@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import { db } from './config/db.js'
 import index from './routes/index.js'
 import vacancyRoutes from './routes/vacancyRoutes.js'
+import authRoutes from './routes/authRoutes.js'
 import cors from 'cors'
 
 
@@ -46,6 +47,7 @@ app.use(cors(corsOption))
 
 app.use('/index', index)
 app.use('/employ', vacancyRoutes)
+app.use('/auth', authRoutes)
 
 
 

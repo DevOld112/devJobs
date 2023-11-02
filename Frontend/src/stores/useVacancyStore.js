@@ -1,12 +1,13 @@
 import { ref, onMounted } from 'vue'
 import { defineStore } from 'pinia'
 import indexAPI from '../api/indexAPI' 
-
+import vacancyAPI from '../api/vacancyAPI';
 
 
 export const useVacancyStore = defineStore('vacancies', () => {
 
     const jobs = ref([])
+    const vacancy = ref({})
 
     onMounted( async() => {
         try {
@@ -18,11 +19,15 @@ export const useVacancyStore = defineStore('vacancies', () => {
 
     })
 
-  
+    function setSelectedVacancy(vacante){
+        return vacancy.value = vacante
+    }
 
-
+    
 
     return {
-        jobs
+        jobs,
+        vacancy,
+        setSelectedVacancy
     }
 })
