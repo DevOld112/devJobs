@@ -34,6 +34,18 @@ const router = createRouter({
               component: () => import('../views/layout/EditVacancyView.vue')
             }
           ]
+        },
+        {
+          path: '/auth',
+          name: 'authLayout',
+          component: () => import('../views/auth/authLayoutView.vue'),
+          children: [
+            {
+              path: '/register',
+              name: 'register',
+              component: () => import('../views/auth/RegisterView.vue')
+            }
+          ]
         }
       ]
     },

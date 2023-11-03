@@ -11,15 +11,35 @@ console.log(route.path)
 
 <template>
   <main class="container p-6 space-y-20">
-    <div class="flex justify-between gap-5">
+    <div class="flex items-center justify-between gap-5">
       <RouterLink
       :to="{name: 'principal'}"
       class="text-6xl font-bold text-white">devJobs</RouterLink>
 
-      <form>
+      <form v-if="route.path === '/layout'">
         <input class="bg-gray-600 text-white" type="text">
         <input class="p-2 text-white border border-gray-300 mx-3 rounded-md italic font-bold hover:bg-white hover:text-gray-900 hover:border-gray-900" type="submit" value="Buscar">
       </form>
+
+      <div class="flex gap-5">
+
+        <RouterLink
+        class="font-bold text-gray-200 bg-teal-500 rounded-lg py-2 px-2 hover:bg-teal-600 hover:text-gray-300"
+        :to="{name: 'authLayout'}"
+        >
+        Sign In
+        </RouterLink>
+
+        <RouterLink
+        class="font-bold text-gray-200 bg-teal-500 rounded-lg py-2 px-2 hover:bg-teal-600 hover:text-gray-300"
+        :to="{name: 'register'}"
+        >
+        Sign Up
+        </RouterLink>
+        
+      </div>
+
+      
 
     </div>
 

@@ -12,13 +12,7 @@ const register = async(req, res) => {
         })
     }
 
-    // Validar que el password sea seguro
 
-    if(password.length < 8){
-        return res.status(400).json({
-            msg: 'Contraseña muy corta o insegura, por favor llenar el campo debidamente'
-        })
-    }
 
     //Validar que no exista un correo registrado anteriormente
 
@@ -32,17 +26,15 @@ const register = async(req, res) => {
 
 
     try {
-
         const user = new User(req.body)
-
-        const result = user.save()
+        const result = await user.save()
         
-        res.status(200).json({
+        return res.status(200).json({
             msg: 'Registro Realizado correctamente'
         })
     } catch (error) {
         console.log(error)
-        res.status(404).json({
+        return res.status(404).json({
             msg:'El registro no se completo debidamente'
         })
     }
