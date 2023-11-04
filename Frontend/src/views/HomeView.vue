@@ -4,13 +4,10 @@ import { useRoute } from 'vue-router';
 
 const route = useRoute()
 
-console.log(route.path)
-
-
 </script>
 
 <template>
-  <main class="container p-6 space-y-20">
+  <main class="container p-6 space-y-10">
     <div class="flex items-center justify-between gap-5">
       <RouterLink
       :to="{name: 'principal'}"
@@ -25,7 +22,7 @@ console.log(route.path)
 
         <RouterLink
         class="font-bold text-gray-200 bg-teal-500 rounded-lg py-2 px-2 hover:bg-teal-600 hover:text-gray-300"
-        :to="{name: 'authLayout'}"
+        :to="{name: 'login'}"
         >
         Sign In
         </RouterLink>

@@ -1,4 +1,5 @@
 import User from '../models/User.js '
+import { generateJWT } from '../helpers/index.js'
 
 const register = async(req, res) => {
     
@@ -43,6 +44,54 @@ const register = async(req, res) => {
     
 }
 
+const login = async(req, res) => {
+
+    const { email, password } = req.body
+
+    //Validar que no existan campos vacios
+
+    if(Object.values(req.body).includes('')){
+        return res.status(403).json({
+            msg:'Existen Campos Vacios'
+        })
+    }
+
+    //Validar que el usuario se encuentre registrado
+
+    const user = await User.findOne({email})
+
+    if(!user){
+        return res.status(403).json({
+            msg: 'Usuario NO se encuentra registrado'
+        })
+    }
+
+    //Validar que se encuentre verificado
+
+    if(!user.verified){
+        return res.status(401).json({
+            msg: 'Usuario no se encuentra confirmado'
+        })
+    }
+
+    //Validar que la contraseña coincida 
+    
+    if(await user.checkPassword(password)){
+
+        const token = generateJWT(user._id)
+        return res.status(200).json({
+            token: token,
+            msg: 'Usuario Autenticado'
+        })
+    }else {
+        return res.status(401).json({
+            msg: 'Contraseña invalida'
+        })
+    }
+
+}
+
 export {
-    register
+    register,
+    login
 }

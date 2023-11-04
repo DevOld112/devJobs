@@ -15,23 +15,23 @@ const router = createRouter({
           component: () => import('../views/layout/LayoutView.vue'),
         },
         {
-          path: ':id',
-          name: 'job',
-          component: () => import('../views/layout/jobView.vue')
-        },
-        {
-          path: '/vacancy',
+          path: 'vacancy',
           name: 'vacancy',
           children: [
             {
-              path: '/newVacancy',
+              path: 'newVacancy',
               name: 'newVacancy',
               component: () => import('../views/layout/NewVacancyView.vue')
             },
             {
-              path: '/edit/:id',
+              path: 'edit/:id',
               name: 'editVacancy',
               component: () => import('../views/layout/EditVacancyView.vue')
+            },
+            {
+              path: ':id',
+              name: 'job',
+              component: () => import('../views/layout/jobView.vue')
             }
           ]
         },
@@ -41,9 +41,14 @@ const router = createRouter({
           component: () => import('../views/auth/authLayoutView.vue'),
           children: [
             {
-              path: '/register',
+              path: 'register',
               name: 'register',
               component: () => import('../views/auth/RegisterView.vue')
+            },
+            {
+              path: 'login',
+              name: 'login',
+              component: () => import('../views/auth/LoginView.vue')
             }
           ]
         }

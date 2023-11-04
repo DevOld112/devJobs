@@ -21,11 +21,14 @@ const handleSubmit = async(formData) => {
         })
 
         setTimeout(() => {
-            router.push({name: 'authLayout'})
+            router.push({name: 'login'})
         }, 2000)
         
     } catch (error) {
-        console.log(error)
+        toast.open({
+            message: error.response.data.msg,
+            type: 'error'
+        })
     }
     
     
@@ -33,7 +36,7 @@ const handleSubmit = async(formData) => {
 </script>
 
 <template>
-    <h3 class="text-xl font-bold text-gray-200 text-center">Formulario de Registro </h3>
+    <h3 class="text-4xl font-bold text-gray-200 text-center">Formulario de Registro </h3>
 
     <FormKit
     id="registerForm"
@@ -76,6 +79,18 @@ const handleSubmit = async(formData) => {
             :validation-messages="{
             required:'El Nombre es Obligatorio',
             email: 'El password debe Contener al menos 8 caracteres'
+            }"
+        />
+
+        <FormKit 
+        type="password"
+        label="Repetir Password"
+        name="password_confirm"
+        placeholder="Repite el Password"
+        validation="required|confirm"
+            :validation-messages="{
+            required:'El Nombre es Obligatorio',
+            confirm: 'Los Passwords no son iguales'
             }"
         />
 
