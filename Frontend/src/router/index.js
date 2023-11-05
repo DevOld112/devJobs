@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import authApi from '../api/authApi'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,11 +22,13 @@ const router = createRouter({
             {
               path: 'newVacancy',
               name: 'newVacancy',
+              meta: {requiresAuth: true },
               component: () => import('../views/layout/NewVacancyView.vue')
             },
             {
               path: 'edit/:id',
               name: 'editVacancy',
+              meta: {requiresAuth: true },
               component: () => import('../views/layout/EditVacancyView.vue')
             },
             {
@@ -51,10 +54,43 @@ const router = createRouter({
               component: () => import('../views/auth/LoginView.vue')
             }
           ]
+        },
+        {
+          path: '/panel',
+          name: 'panel',
+          component: () => import('../views/panel/PanelLayoutView.vue'),
+          meta: {requiresAuth: true},
+          children: [
+            {
+              path: 'user',
+              name: 'panelNavegation',
+              component: () => import('../views/panel/botonesLayoutView.vue')
+            }
+          ]
         }
       ]
     },
   ]
+})
+
+router.beforeEach( async(to, from, next) => {
+
+  const requiresAuth = to.matched.some(url => url.meta.requiresAuth)
+  
+  if(requiresAuth){
+
+    try {
+      const { data } = await authApi.auth()
+      next()
+    } catch (error) {
+      next({name: 'login'})
+    }
+
+  } else {
+    next()
+  }
+
+  
 })
 
 export default router

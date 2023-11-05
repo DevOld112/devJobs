@@ -37,7 +37,12 @@ const vacancySchema = mongoose.Schema({
         name: String,
         email: String,
         cv: String
-    }]
+    }],
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users',
+        require: true
+    }
 })
 
 const vacancy = mongoose.model('Vacancy', vacancySchema)

@@ -40,13 +40,8 @@ defineProps({
             class="text-white inline-block w-64 h-10 text-center font-bold my-5 bg-teal-500 p-2 rounded-lg">
                 Mas Info
             </RouterLink>
-
-
-
         </div>
-
         <hr>
-
     </div>
     
 </template>

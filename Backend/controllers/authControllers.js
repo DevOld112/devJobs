@@ -79,7 +79,9 @@ const login = async(req, res) => {
     if(await user.checkPassword(password)){
 
         const token = generateJWT(user._id)
+        console.log(token)
         return res.status(200).json({
+            name: user.name,
             token: token,
             msg: 'Usuario Autenticado'
         })
@@ -91,7 +93,19 @@ const login = async(req, res) => {
 
 }
 
+const user = async(req, res) => {
+    const { user } = req
+
+    res.status(200).json(user)
+}
+
+const showPanel = async(req, res) => {
+
+}
+
 export {
     register,
-    login
+    login,
+    showPanel,
+    user
 }

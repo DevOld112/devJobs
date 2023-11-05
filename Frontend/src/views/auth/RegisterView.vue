@@ -1,8 +1,9 @@
 <script setup>
 import { FormKit, reset } from '@formkit/vue';
 import authApi from '../../api/authApi'
-import { inject } from 'vue';
+import { inject, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
+
 
 const toast = inject('toast')
 const router = useRouter()
@@ -10,29 +11,24 @@ const router = useRouter()
 
 const handleSubmit = async(formData) => {
 
-
     try {
         const { data } = await authApi.register(formData)
         reset('registerForm')
-
         toast.open({
             message: data.msg,
             type: 'success' 
         })
-
         setTimeout(() => {
             router.push({name: 'login'})
         }, 2000)
-        
     } catch (error) {
         toast.open({
             message: error.response.data.msg,
             type: 'error'
         })
     }
-    
-    
 }
+
 </script>
 
 <template>

@@ -3,23 +3,31 @@ import { useRouter } from 'vue-router';
 import { FormKit } from '@formkit/vue';
 import { inject } from 'vue';
 import authApi from '../../api/authApi';
+import { onMounted } from 'vue';
+import { useUserStore } from '../../stores/useUserStore';
 
+const user = useUserStore()
 const toast = inject('toast')
 const router = useRouter()
+
 
 const handleSubmit = async(formData) => {
     try {
         const { data } = await authApi.login(formData)
+        console.log(data)
         toast.open({
             message: data.msg,
             type: 'success'
         })
 
+        const save = data.token;
+        localStorage.setItem('AUTH_TOKEN', save)
+        user.user.name = data.name
+
         setTimeout(() => {
-            router.push({
-            name: 'principal'
-        })
+            router.push({name: 'principal'})
         }, 2000)
+
 
         
     } catch (error) {

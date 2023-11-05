@@ -1,7 +1,14 @@
 <script setup>
-import { RouterView, useRoute } from 'vue-router';
+import { RouterView, useRoute, useRouter } from 'vue-router';
+import { onMounted } from 'vue';
+
+
 
 const route = useRoute()
+const router = useRouter()
+
+
+
 
 const titles = [
     {name: 'register', titlesName: 'Comienza a publicar tus vacantes gratis, solo debes crear una cuenta'},

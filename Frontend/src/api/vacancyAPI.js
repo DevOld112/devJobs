@@ -9,5 +9,8 @@ export default {
     },
     updateVacancy(id, data){
         return api.post(`/employ/vacancy/${id}/edit`, data)
+    },
+    deleteVacancy(id){
+        return api.delete(`/employ/vacancy/${id}/delete`)
     }
 }

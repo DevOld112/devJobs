@@ -11,9 +11,13 @@ const addVacancy = async(req, res) => {
         })
     }
     
+    const vacancyForm = req.body
+    
+    vacancyForm.user = req.user._id.toString()
+    console.log(vacancyForm)
 
     try {
-        const vacancy = new Vacancy(req.body)
+        const vacancy = new Vacancy(vacancyForm)
         const result = await vacancy.save()
 
         return res.status(200).json({
@@ -96,8 +100,55 @@ const updateVacancy = async(req, res) => {
     }
 }
 
+const deleteVacancy = async(req, res) =>{ 
+
+    const { id } = req.params
+    
+    //Validar que el id sea valido
+
+    if(!isValidObjectId(id, res)){
+        return res.status(404).json({
+            msg: 'Peticion Invalida'
+        })
+    }
+
+    //Validamos que el id exista en la base de datos
+
+    const vacancy = await Vacancy.findById(id)
+    if(!vacancy){
+        return res.status(401).json({
+            msg: 'Vacante de trabajo NO existe'
+        })
+    }
+
+    //Validar que sea el mismo usuario que creo la vacante pueda eliminarla
+
+    console.log(vacancy.user)
+    console.log(req.user._id)
+
+    if(vacancy.user.toString() !== req.user._id.toString()){
+        return res.status(403).json({
+            msg:'No tienes los permisos para realizar esa accion'
+        })
+    }
+
+    try {
+        const result = await vacancy.deleteOne()
+
+        return res.status(200).json({
+            msg: 'Cita eliminada Correctamente'
+        })
+    } catch (error) {
+        console.log(error)
+    }
+
+
+
+}
+
 export {
     addVacancy,
     showVacancy,
-    updateVacancy
+    updateVacancy,
+    deleteVacancy
 }
