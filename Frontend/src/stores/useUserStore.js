@@ -1,25 +1,32 @@
 import { defineStore } from 'pinia'
 import { ref, onMounted, computed, inject } from 'vue';
 import authApi from '../api/authApi';
+import vacancyAPI from '../api/vacancyAPI';
 import { useRouter } from 'vue-router'
-import router from '../router';
+
 
 
 export const useUserStore = defineStore('user', () => {
 
     const user = ref({})
     const toast = inject('toast')
+    const userVacancy = ref([])
+    const router = useRouter()
+    const identification = ref('')
 
     onMounted( async() => {
         try {
             const { data } = await authApi.auth()
             user.value = data
+            identification.value = data._id
+            console.log(identification.value)
         } catch (error) {
             console.log(error)
-            next()
+
             
         }
     })
+
 
     const getUserLogin = computed(() => user.value?.name ? user.value?.name : '')
 
@@ -43,6 +50,7 @@ export const useUserStore = defineStore('user', () => {
 
     return {
         user,
+        identification,
         getUserLogin,
         logout
     }

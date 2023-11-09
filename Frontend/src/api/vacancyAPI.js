@@ -12,5 +12,8 @@ export default {
     },
     deleteVacancy(id){
         return api.delete(`/employ/vacancy/${id}/delete`)
+    },
+    getUserVacancy(userId){
+        return api.get(`/users/${userId}/vacancy`)
     }
 }

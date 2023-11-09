@@ -12,7 +12,6 @@ const authMiddleware = async(req, res, next) => {
         req.user = await User.findById(decoded.id).select(
             "-password -verified -token -__v"
         )
-        console.log(req.user)
         } catch (error) {
             res.status(403).json({msg:'Token Invalido'})
         }

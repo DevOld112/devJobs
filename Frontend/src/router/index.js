@@ -34,7 +34,15 @@ const router = createRouter({
             {
               path: ':id',
               name: 'job',
-              component: () => import('../views/layout/jobView.vue')
+              component: () => import('../views/layout/jobView.vue'),
+              children: [
+                {
+                  path: 'apply',
+                  name: 'applyJob',
+                  meta: {requiresAuth: true },
+                  component: () => import('../views/layout/ApplyJobView.vue')
+                }
+              ]
             }
           ]
         },

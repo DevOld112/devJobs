@@ -1,11 +1,15 @@
 import express from 'express'
 import colors from 'colors'
 import dotenv from 'dotenv'
+import path from 'path'
 import { db } from './config/db.js'
 import index from './routes/index.js'
 import vacancyRoutes from './routes/vacancyRoutes.js'
 import authRoutes from './routes/authRoutes.js'
+import userRoutes from './routes/userRoutes.js'
+import candidateRoutes from './routes/candidateRoutes.js'
 import cors from 'cors'
+
 
 
 
@@ -48,7 +52,9 @@ app.use(cors(corsOption))
 app.use('/index', index)
 app.use('/employ', vacancyRoutes)
 app.use('/auth', authRoutes)
-
+app.use('/users', userRoutes)
+app.use('/candidate', candidateRoutes)
+app.use(express.static('public'))
 
 
 // Levantando el servidor
@@ -58,3 +64,6 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, (req, res) => {
     console.log(colors.green.bold(`Servidor Levantado en el puerto ${PORT}`))
 })
+
+
+

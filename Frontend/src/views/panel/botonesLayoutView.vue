@@ -1,11 +1,13 @@
 <script setup>
 import { RouterLink, useRouter } from 'vue-router';
 import PanelVacancy from '../../components/PanelVacancy.vue'
+import { userVacancyStore } from '../../stores/userVacancyStore';
 import { useVacancyStore } from '../../stores/useVacancyStore';
 
-const store = useVacancyStore()
 
-console.log(store.jobs)
+const store = userVacancyStore()
+console.log(store.userVacancy)
+
 
 </script>
 
@@ -41,7 +43,7 @@ console.log(store.jobs)
             <h1 class="text-4xl font-bold text-gray-200">Tus Vacantes</h1>
 
             <PanelVacancy
-            v-for="job in store.jobs"
+            v-for="job in store.userVacancy"
             :job="job"
             :key="job._id"
             />
