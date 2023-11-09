@@ -5,6 +5,6 @@ import upload from '../middleware/uploadCv.js';
 
 const router = express.Router()
 
-router.post('/:id/apply', authMiddleware, upload.single('file') ,applyVacancy)
+router.post('/:id/apply', authMiddleware, upload.single('cv') ,applyVacancy)
 
 export default router;

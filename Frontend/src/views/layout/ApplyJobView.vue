@@ -13,15 +13,25 @@ const router = useRouter()
 
 const { id } = route.params
 
-const handleSubmit = async(formData) => {
-    const candidate  = { name: store.user.name, email: store.user.email, cv: formData.cv[0].name }
+const handleSubmit = async(data) => {
 
-    console.log(candidate)
+    const body = new FormData()
+
+    // Agregar el nombre y email al FormData
+    body.append('name', store.user.name);
+    body.append('email', store.user.email);
+
+    //Agregar el file de cv a la base de datos
+
+    data.cv.forEach((fileItem) => {
+        body.append('cv', fileItem.file)
+    })
 
     try {
-        const { data } = await candidateApi.applyVacancy(id, candidate)
+        const formdata  = await candidateApi.applyVacancy(id, body)
+        console.log(formdata)
         toast.open({
-            message: data.msg,
+            message: formdata.data.msg,
             type: 'success'
         })
 
@@ -37,28 +47,24 @@ const handleSubmit = async(formData) => {
 </script>
 
 <template>
-    <h1 class="text-4xl text-center text-gray-200 font-bold">Postulacion</h1>
-
     <FormKit
-    id="vacancyForm"
-    type="form"
-    :actions="false"
-    @submit="handleSubmit"
-    classes="flex justify-center w-40"
-    enctype="multipart/form-data"
-    >
+        v-if="!complete"
+        id="candidateForm"
+        type="form"
+        @submit="handleSubmit"
+        :actions="false"
+        >
 
         <FormKit
-        type="file"
-        label="Carga tu CV"
-        name="cv"
-        help="Solo se admiten archivos en formato PDF"
-        multiple="false"
-        accept=".pdf"
+            type="file"
+            label="Completa tu Postulacion"
+            name="cv"
+            help="Sube tu CV, solo se permite formato PDF"
+            accept=".pdf"
+            validation="required"
         />
 
         <FormKit type="submit">Enviar Postulacion</FormKit>
-
     </FormKit>
-
-</template>
+    
+    </template>
