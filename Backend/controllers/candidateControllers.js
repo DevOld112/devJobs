@@ -1,7 +1,14 @@
 import { isValidObjectId } from "mongoose"
 import Vacancy from "../models/Vacancy.js"
+import { fileURLToPath } from 'url';
+import path from "path";
 import fs from 'fs'
-import path from "path"
+import { dirname } from 'path';
+import { error } from "console";
+
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 
 
@@ -52,8 +59,35 @@ const applyVacancy = async(req, res, next) => {
 }
 
 
+const downloadCV = (req, res) => {
+    const { id } = req.params
 
+    const fileName = id;
+    const filePath = path.join(process.cwd(), '/public/uploads/cv', fileName)
+
+    console.log(filePath)
+
+    try {
+        if (fs.existsSync(filePath)) {
+            res.setHeader('Content-Disposition', `attachment; filename=${fileName}`);
+            res.setHeader('Content-Type', 'application/pdf');
+
+            const fileStream = fs.createReadStream(filePath);
+            fileStream.pipe(res)
+    } else{
+        res.status(404).json({
+            error: 'Archivo No encontrado'
+        })
+    }
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({
+            error: 'Error del servidor'
+        })
+    }
+}
 
 export {
-    applyVacancy
+    applyVacancy,
+    downloadCV
 }

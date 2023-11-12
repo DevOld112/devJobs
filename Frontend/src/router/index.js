@@ -73,8 +73,14 @@ const router = createRouter({
               path: 'user',
               name: 'panelNavegation',
               component: () => import('../views/panel/botonesLayoutView.vue')
-            }
+            },
           ]
+        },
+        {
+          path: 'candidates/:id',
+          name: 'candidates',
+          meta: {requiresAuth: true},
+          component: () => import('../views/panel/CandidatesView.vue')
         }
       ]
     },

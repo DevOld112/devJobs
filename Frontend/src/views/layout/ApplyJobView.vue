@@ -20,6 +20,7 @@ const handleSubmit = async(data) => {
     // Agregar el nombre y email al FormData
     body.append('name', store.user.name);
     body.append('email', store.user.email);
+    
 
     //Agregar el file de cv a la base de datos
 

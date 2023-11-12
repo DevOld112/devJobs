@@ -6,6 +6,10 @@ import { RouterLink } from 'vue-router'
 
     const store = useVacancyStore()
 
+    onMounted(() =>{
+        store.loadVacancyData()
+        console.log(store.jobs)
+    })
 
 </script>
 

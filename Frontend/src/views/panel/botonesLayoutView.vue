@@ -2,11 +2,11 @@
 import { RouterLink, useRouter } from 'vue-router';
 import PanelVacancy from '../../components/PanelVacancy.vue'
 import { userVacancyStore } from '../../stores/userVacancyStore';
-import { useVacancyStore } from '../../stores/useVacancyStore';
+
 
 
 const store = userVacancyStore()
-console.log(store.userVacancy)
+
 
 
 </script>

@@ -2,6 +2,8 @@ import express from 'express'
 import colors from 'colors'
 import dotenv from 'dotenv'
 import path from 'path'
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import { db } from './config/db.js'
 import index from './routes/index.js'
 import vacancyRoutes from './routes/vacancyRoutes.js'
@@ -55,6 +57,8 @@ app.use('/auth', authRoutes)
 app.use('/users', userRoutes)
 app.use('/candidate', candidateRoutes)
 app.use(express.static('public'))
+
+
 
 
 // Levantando el servidor

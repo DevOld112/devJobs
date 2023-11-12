@@ -12,14 +12,10 @@ export const userVacancyStore = defineStore('userVacancy', () =>{
         try {
             const { data } = await authApi.auth()
             user.value = data
-            console.log(user.value._id)
-
-            const { data: dataVacancy } = await vacancyAPI.getUserVacancy(user.value._id)
-            console.log(dataVacancy)
             
+            const { data: dataVacancy } = await vacancyAPI.getUserVacancy(user.value._id)  
 
             userVacancy.value = dataVacancy
-            console.log(userVacancy.value)
         } catch (error) {
             console.log(error)
         }

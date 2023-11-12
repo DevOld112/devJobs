@@ -2,11 +2,9 @@
 import { RouterLink, useRouter } from 'vue-router'
 import { useVacancyStore } from '../stores/useVacancyStore'
 
+
 const vacancy = useVacancyStore()
 
-
-
-const router = useRouter()
 
 defineProps({
     job: {
@@ -22,6 +20,11 @@ defineProps({
             <div class="flex flex-col w-1/4 my-10">
             <h2>{{ job.company }}</h2>
             <h3 class="text-gray-500">{{ job.tittle }}</h3>
+            <div class="flex gap-1">
+                <p class="text-center text-xs font-bold text-yellow-200">{{ job.candidates.length }}</p>
+                <span class="text-center text-xs font-extrabold text-yellow-200"> Candidatos</span>
+            </div>
+            
             </div>
         </div>
 
@@ -29,7 +32,7 @@ defineProps({
             <RouterLink
             class="font-bold text-gray-200 bg-yellow-500 rounded-lg py-2 px-2 hover:bg-yellow-600 hover:text-gray-300  text-center"
             :to="{
-                name:'job',
+                name:'candidates',
                 params: {id: job._id }   
             }"
 
@@ -40,7 +43,7 @@ defineProps({
             <RouterLink
             class="font-bold text-gray-200 bg-teal-500 rounded-lg py-2 px-2 hover:bg-teal-600 hover:text-gray-300  text-center"
             :to="{
-                name:'job',
+                name:'editVacancy',
                 params: {id: job._id }   
             }"
 
